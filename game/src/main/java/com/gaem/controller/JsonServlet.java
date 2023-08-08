@@ -2,8 +2,6 @@ package com.gaem.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,19 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gaem.service.BoardInfoService;
 import com.gaem.service.impl.BoardInfoServiceImpl;
+import com.gaem.vo.BoardInfoVO;
 import com.google.gson.Gson;
 
 @WebServlet("/json/*")
 public class JsonServlet extends HttpServlet{
-
+//json servlet 만든 이유 -> json형태로 변환하기 위해서, cors하려고
+	
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
 	private BoardInfoService biService = new BoardInfoServiceImpl();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		List<Map<String,String>> biList = biService.selectBoardInfoList(null);	
-		String json = gson.toJson(biList);
-		response.setHeader("Access-Control-Allow-Origin", "*");
+		
+		String searchType = request.getParameter("searchType");
+		String searchStr = request.getParameter("searchStr");
+		BoardInfoVO board = new BoardInfoVO();
+		board.setSearchStr(searchStr);
+		board.setSearchType(searchType);
+		
+		String json = gson.toJson(biService.selectBoardInfoList(board));
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(json);
@@ -33,6 +37,5 @@ public class JsonServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
-	
 
 }

@@ -18,7 +18,7 @@ public class MybatisSqlSessionFactory {
 	private final static String CONFIG_PATH = "config/mybatis-config.xml";
 	static {
 		try {
-			InputStream is = Resources.getResourceAsStream(CONFIG_PATH);
+			InputStream is = Resources.getResourceAsStream(CONFIG_PATH); 
 			SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
 			SSF = ssfb.build(is);
 		} catch (IOException e) {

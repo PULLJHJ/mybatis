@@ -2,7 +2,6 @@ package com.gaem.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -36,6 +35,7 @@ public class BoardInfoServlet extends HttpServlet {
 			return;
 		}
 		String cmd = CommonView.getCmd(request);
+		
 		if("list".equals(cmd)) {
 			Map<String,String> param = null;
 			if(request.getParameter("searchType")!=null) {
@@ -45,8 +45,7 @@ public class BoardInfoServlet extends HttpServlet {
 			param.put("key", key);
 			param.put("value", value);
 			}
-			List<Map<String, String>> list = biService.selectBoardInfoList(param);	
-			request.setAttribute("biList", list);
+			request.setAttribute("biList", biService.selectBoardInfoList(null));
 		}else if("view".equals(cmd) || "update".equals(cmd)) {
 			String biNum = request.getParameter("biNum");
 			Map<String,String> board = biService.selectBaordInfo(biNum);

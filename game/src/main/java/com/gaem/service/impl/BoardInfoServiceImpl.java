@@ -3,17 +3,30 @@ package com.gaem.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.gaem.common.MybatisSqlSessionFactory;
 import com.gaem.dao.BoardInfoDAO;
 import com.gaem.dao.impl.BoardInfoDAOImpl;
+import com.gaem.mapper.BoardInfoMapper;
 import com.gaem.service.BoardInfoService;
+import com.gaem.vo.BoardInfoVO;
 
 public class BoardInfoServiceImpl implements BoardInfoService {
 	private BoardInfoDAO biDAO = new BoardInfoDAOImpl();
+	private SqlSessionFactory ssf = MybatisSqlSessionFactory.getSqlSessionFactory();
 
 	@Override
-	public List<Map<String, String>> selectBoardInfoList(Map<String, String> board) {
-		return biDAO.selectBoardInfoList(board);
+	public List<BoardInfoVO> selectBoardInfoList(BoardInfoVO board) {
+		try(SqlSession session = ssf.openSession()){
+			BoardInfoMapper biMapper = session.getMapper(BoardInfoMapper.class);
+			return biMapper.selectBoardInfoList(board);
+		}catch(Exception e) {
+			throw e;
+		}
 	}
+	
 
 	@Override
 	public Map<String, String> selectBaordInfo(String biNum) {
