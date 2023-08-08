@@ -3,18 +3,29 @@ package com.gaem.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
+import com.gaem.common.MybatisSqlSessionFactory;
 import com.gaem.dao.UserInfoDAO;
 import com.gaem.dao.impl.UserInfoDAOImpl;
+import com.gaem.mapper.UserInfoMapper;
 import com.gaem.service.UserInfoService;
+import com.gaem.vo.UserInfoVO;
+import com.google.gson.Gson;
 
 public class UserInfoServiceImpl implements UserInfoService {
 	private UserInfoDAO uiDAO = new UserInfoDAOImpl();
+	private SqlSessionFactory ssf = MybatisSqlSessionFactory.getSqlSessionFactory();
 	
 	@Override
-	public List<Map<String, String>> selectUserInfoList(Map<String, String> userInfo) {
-		return uiDAO.selectUserInfoList(userInfo);
+	public List<UserInfoVO> selectUserInfoList(UserInfoVO userInfo) {
+		try(SqlSession session = ssf.openSession()){
+			UserInfoMapper uiMapper = session.getMapper(UserInfoMapper.class);
+			return uiMapper.selectUserInfoList(userInfo);
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 
 	@Override

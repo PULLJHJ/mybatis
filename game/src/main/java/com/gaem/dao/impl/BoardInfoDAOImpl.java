@@ -17,9 +17,9 @@ public class BoardInfoDAOImpl implements BoardInfoDAO{
 	@Override
 	public List<Map<String, String>> selectBoardInfoList(Map<String, String> board) {
 		List<Map<String, String>> list = new ArrayList<>();
-		String sql = "SELECT BI.*, UI.UI_NAME FROM board_info BI \r\n"
-				+ "INNER JOIN user_info UI\r\n"
-				+ "ON BI.UI_NUM = UI.UI_NUM WHERE 1=1";
+		String sql = "SELECT BI.*, UI.UI_NAME FROM BOARD_INFO BI " +
+	             "INNER JOIN USER_INFO UI " +
+	             "ON BI.UI_NUM = UI.UI_NUM WHERE 1=1";
 		if (board != null) {
 			String key = board.get("key");
 			if ("1".equals(key)) {

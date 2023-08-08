@@ -61,10 +61,10 @@
 		            let html ='';
 		            for(const board of list){
 		            	html += '<tr>';
-		            	html += '<td>' + board.biNum+ '</td>';
-		            	html += '<td>' + board.biTitle+ '</td>';
-		            	html += '<td>' + board.uiName+ '</td>';
-		            	html += '<td>' + board.credat+ '</td>';
+		            	html += '<td>' + board.biNum + '</td>';
+		            	html += '<td><a href="/views/board-info/view?biNum=' + board.biNum + '">' + board.biTitle + '</a></td>';
+		            	html += '<td>' + board.uiName + '</td>';
+		            	html += '<td>' + board.credat + '</td>';
 		            	html += '</tr>';
 		            }
 		            document.querySelector('#tBody').innerHTML = html;
