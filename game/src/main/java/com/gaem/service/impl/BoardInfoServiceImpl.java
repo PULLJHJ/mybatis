@@ -26,7 +26,6 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 			throw e;
 		}
 	}
-	
 
 	@Override
 	public BoardInfoVO selectBaordInfo(String biNum) {

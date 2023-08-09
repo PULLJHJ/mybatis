@@ -22,6 +22,7 @@ public class JsonServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
 	private BoardInfoService biService = new BoardInfoServiceImpl();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String json = "";
 		String cmd = CommonView.getCmd(request);
