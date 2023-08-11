@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+번호 : ${param.num}<br>
 이름: <input type="text" id="name"><br>
 나이: <input type="text" id="age"><br>
 주소: <input type="text" id="address"><br>
@@ -48,18 +49,18 @@ window.addEventListener('load', function(){
 
     xhr.open('GET', '/list/one?num=' + ${param.num});
     xhr.onreadystatechange = function(){
-        if(xhr.readyState === 4 && xhr.status === 200){
-            const obj = JSON.parse(xhr.responseText);
-            for(const key in obj){
-                const element = document.querySelector('#'+ key);
-                if (element) { // 해당 요소가 존재하는 경우에만 값을 설정합니다.
-                    element.innerHTML = obj[key];
+    	if(xhr.readyState===4){
+			if(xhr.status===200){
+				const obj = JSON.parse(xhr.responseText);
+				for(const key in obj){
+					if(document.querySelector('#' + key)){
+						document.querySelector('#' + key).value = obj[key];
                 }
             }
         }
     }
     xhr.send();
-});
+})
 </script>
 </body>
 </html>
